@@ -12,15 +12,19 @@ class PatientAddScreen extends StatefulWidget {
 
 class _PatientAddScreenState extends State<PatientAddScreen> {
   final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final dateInput = TextEditingController();
   String gender = "male";
-  String dropdownValue = 'Yes';
+  final ageController = TextEditingController();
+  final addressController = TextEditingController();
+  final dateInput = TextEditingController();
+  String vot = 'Yes';
 
-  void handleLogIn() {
-    print("hello");
+  void handlePatientAdd() {
     print(usernameController.text);
-    print(passwordController.text);
+    print(gender);
+    print(ageController);
+    print(addressController);
+    print(dateInput);
+    print(vot);
   }
 
   @override
@@ -131,7 +135,7 @@ class _PatientAddScreenState extends State<PatientAddScreen> {
                     child: CustomTextField(
                       hintText: "Age",
                       obscureText: false,
-                      controller: usernameController,
+                      controller: ageController,
                     ),
                   ),
                   const SizedBox(
@@ -144,7 +148,7 @@ class _PatientAddScreenState extends State<PatientAddScreen> {
                     child: CustomTextField(
                       hintText: "Address",
                       obscureText: true,
-                      controller: passwordController,
+                      controller: addressController,
                     ),
                   ),
                   const SizedBox(
@@ -208,10 +212,10 @@ class _PatientAddScreenState extends State<PatientAddScreen> {
 
                     alignment: Alignment.center,
                     child: DropdownButton<String>(
-                      value: dropdownValue,
+                      value: vot,
                       onChanged: (String? newValue) {
                         setState(() {
-                          dropdownValue = newValue as String;
+                          vot = newValue as String;
                         });
                       },
                       items: <String>[
@@ -230,7 +234,7 @@ class _PatientAddScreenState extends State<PatientAddScreen> {
                     ),
                   ),
                   CustomButton(
-                    onTap: handleLogIn,
+                    onTap: handlePatientAdd,
                     buttonName: "Submit",
                   ),
                 ],

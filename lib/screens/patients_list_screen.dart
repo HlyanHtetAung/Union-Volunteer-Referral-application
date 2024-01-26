@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:volunteer_referral/screens/patient_add_screen.dart';
-import 'package:volunteer_referral/widgets/patient_card.dart';
+import '../widgets/patient_card.dart';
 
 class PatientsListScreen extends StatefulWidget {
   const PatientsListScreen({super.key});
@@ -10,6 +11,26 @@ class PatientsListScreen extends StatefulWidget {
 }
 
 class _PatientsListScreenState extends State<PatientsListScreen> {
+  List<Map<String, dynamic>> _items = [];
+
+  final _patient_list = Hive.box("patient_box");
+
+  Future<void> createPatient() async {
+    await _patient_list.add({"name": "Hlyan Htet", "age": 22});
+    print("Amount data is ${_patient_list.length}");
+  }
+
+  Future<void> clearPatient() async {
+    await Hive.box('patient_box').clear();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    clearPatient();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +77,15 @@ class _PatientsListScreenState extends State<PatientsListScreen> {
           ],
         ),
       ),
+      // body: GestureDetector(
+      //   onTap: createPatient,
+      //   child: Container(
+      //     color: Colors.blue,
+      //     child: Text(
+      //       "Hello",
+      //     ),
+      //   ),
+      // )
       body: ListView(
         children: [
           PatientCard(),
